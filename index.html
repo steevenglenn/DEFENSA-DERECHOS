@@ -76,11 +76,10 @@
         .btn-verde { background-color: var(--brandVerde); }
         .lista-items { flex-grow: 1; overflow-y: auto; max-height: 320px; padding-right: 4px; display: flex; flex-direction: column; gap: 0.5rem; }
         
-        /* Estilo Burbuja Chat Inmediato */
-        .item-card { padding: 0.6rem 0.8rem; border-radius: 8px; font-size: 0.85rem; box-shadow: 0 1px 2px rgba(0,0,0,0.1); max-width: 95%; width: 100%; position: relative; word-wrap: break-word; animation: aparecer 0.2s ease-out; }
-        @keyframes aparecer { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-        .item-card.azul { background-color: #ffffff; border-left: 4px solid var(--brandAzul); align-self: flex-start; }
-        .item-card.verde { background-color: #E6FFFA; border-left: 4px solid var(--brandVerde); align-self: flex-start; }
+        /* Burbujas interactivas estilo foro ordenado */
+        .item-card { padding: 0.6rem 0.8rem; border-radius: 8px; font-size: 0.85rem; box-shadow: 0 1px 2px rgba(0,0,0,0.1); max-width: 100%; width: 100%; position: relative; word-wrap: break-word; }
+        .item-card.azul { background-color: #ffffff; border-left: 4px solid var(--brandAzul); }
+        .item-card.verde { background-color: #E6FFFA; border-left: 4px solid var(--brandVerde); }
         
         .item-header { display: flex; justify-content: space-between; font-weight: bold; color: #444; margin-bottom: 0.2rem; gap: 1rem; }
         .item-date { font-size: 0.65rem; color: #888; white-space: nowrap; font-weight: normal; }
@@ -97,7 +96,7 @@
         </div>
         <h1>DERECHOS</h1>
         <p class="subtitle">Defensa y Soluciones</p>
-        <p class="description">Un espacio interactivo instantáneo para visibilizar la vulneración de derechos, compartir opiniones y proponer alternativas de cambio social en vivo.</p>
+        <p class="description">Un espacio comunitario interactivo para visibilizar la vulneración de derechos, compartir opiniones y proponer alternativas de cambio social en vivo.</p>
     </header>
 
     <main>
@@ -113,24 +112,24 @@
         </div>
 
         <div class="grid-container">
-            <!-- COLUMNA IZQUIERDA: OPINIONES -->
+            <!-- FORO DE OPINIONES -->
             <section class="panel">
                 <h2 class="azul">💬 Foro de Opiniones</h2>
                 <form id="opinion-form">
                     <input type="text" id="opinion-nombre" placeholder="Tu nombre o anónimo" required>
                     <textarea id="opinion-texto" rows="3" placeholder="¿Cómo se vulnera este derecho? Deja tu opinión..." required></textarea>
-                    <button type="submit" id="btn-opinion" class="btn btn-azul">Publicar Opinión</button>
+                    <button type="submit" class="btn btn-azul">Publicar Opinión</button>
                 </form>
                 <div id="opiniones-lista" class="lista-items"></div>
             </section>
 
-            <!-- COLUMNA DERECHA: SOLUCIONES -->
+            <!-- PROPUESTAS DE SOLUCIÓN -->
             <section class="panel">
                 <h2 class="verde">💡 Propuestas de Solución</h2>
                 <form id="solucion-form">
                     <input type="text" id="solucion-nombre" placeholder="Tu nombre o institución" required>
                     <textarea id="solucion-texto" rows="3" placeholder="¿Qué solución legal, tecnológica o social propones?" required></textarea>
-                    <button type="submit" id="btn-solucion" class="btn btn-verde">Proponer Solución</button>
+                    <button type="submit" class="btn btn-verde">Proponer Solución</button>
                 </form>
                 <div id="soluciones-lista" class="lista-items"></div>
             </section>
@@ -138,7 +137,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 Derechos: Defensa y Soluciones. Interacción Local Segura e Inmediata.</p>
+        <p>&copy; 2026 Derechos: Defensa y Soluciones. Interacción Local Instantánea.</p>
     </footer>
 
     <script>
@@ -149,7 +148,7 @@
         derechoSelect.addEventListener('change', renderizarPantalla);
         document.addEventListener('DOMContentLoaded', renderizarPantalla);
 
-        // Publicar Opinión (Inmediato)
+        // Enviar Opinión (Instantáneo)
         document.getElementById('opinion-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const txt = document.getElementById('opinion-texto');
@@ -158,7 +157,6 @@
 
             const nuevaOp = { nombre: nom.value, texto: txt.value, fecha: obtenerHora() };
             
-            // Guardar local e inmediatamente
             let almacenamiento = JSON.parse(localStorage.getItem('ops_' + derecho)) || [];
             almacenamiento.push(nuevaOp);
             localStorage.setItem('ops_' + derecho, JSON.stringify(almacenamiento));
@@ -167,7 +165,7 @@
             renderizarPantalla();
         });
 
-        // Publicar Solución (Inmediato)
+        // Enviar Solución (Instantáneo)
         document.getElementById('solucion-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const txt = document.getElementById('solucion-texto');
@@ -176,4 +174,13 @@
 
             const nuevaSol = { nombre: nom.value, texto: txt.value, fecha: obtenerHora() };
 
-            // Guardar local e inmediatamente
+            let almacenamiento = JSON.parse(localStorage.getItem('sols_' + derecho)) || [];
+            almacenamiento.push(nuevaSol);
+            localStorage.setItem('sols_' + derecho, JSON.stringify(almacenamiento));
+
+            txt.value = '';
+            renderizarPantalla();
+        });
+
+        // Mostrar elementos en la pantalla de inmediato
+        function renderizarPantalla() {
