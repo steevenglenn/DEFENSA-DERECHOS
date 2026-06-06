@@ -74,13 +74,13 @@
         .btn { width: 100%; border: none; padding: 0.65rem; color: white; border-radius: 6px; font-weight: bold; font-size: 0.875rem; cursor: pointer; transition: opacity 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .btn-azul { background-color: var(--brandAzul); }
         .btn-verde { background-color: var(--brandVerde); }
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .lista-items { flex-grow: 1; overflow-y: auto; max-height: 320px; padding-right: 4px; display: flex; flex-direction: column; gap: 0.5rem; }
         
-        /* burbujas interactivas estilo chat */
-        .item-card { padding: 0.6rem 0.8rem; border-radius: 8px; font-size: 0.85rem; box-shadow: 0 1px 2px rgba(0,0,0,0.1); max-width: 90%; position: relative; word-wrap: break-word; }
+        /* Estilo Burbuja Chat Inmediato */
+        .item-card { padding: 0.6rem 0.8rem; border-radius: 8px; font-size: 0.85rem; box-shadow: 0 1px 2px rgba(0,0,0,0.1); max-width: 95%; width: 100%; position: relative; word-wrap: break-word; animation: aparecer 0.2s ease-out; }
+        @keyframes aparecer { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         .item-card.azul { background-color: #ffffff; border-left: 4px solid var(--brandAzul); align-self: flex-start; }
-        .item-card.verde { background-color: #EBF8FF; border-left: 4px solid var(--brandVerde); align-self: flex-end; }
+        .item-card.verde { background-color: #E6FFFA; border-left: 4px solid var(--brandVerde); align-self: flex-start; }
         
         .item-header { display: flex; justify-content: space-between; font-weight: bold; color: #444; margin-bottom: 0.2rem; gap: 1rem; }
         .item-date { font-size: 0.65rem; color: #888; white-space: nowrap; font-weight: normal; }
@@ -97,7 +97,7 @@
         </div>
         <h1>DERECHOS</h1>
         <p class="subtitle">Defensa y Soluciones</p>
-        <p class="description">Un espacio comunitario para visibilizar la vulneración de derechos, compartir opiniones y proponer alternativas de cambio social en tiempo real.</p>
+        <p class="description">Un espacio interactivo instantáneo para visibilizar la vulneración de derechos, compartir opiniones y proponer alternativas de cambio social en vivo.</p>
     </header>
 
     <main>
@@ -138,40 +138,42 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 Derechos: Defensa y Soluciones. Conexión de Datos en Vivo.</p>
+        <p>&copy; 2026 Derechos: Defensa y Soluciones. Interacción Local Segura e Inmediata.</p>
     </footer>
 
     <script>
-        // CONEXIÓN DIRECTA, ABIERTA Y SEGURA
-        const REST_URL = "https://supabase.co";
-        const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6YWp2a3l2aHl1eHZ1bm1zdmNsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4NjIxNjMsImV4cCI6MjA5NTQzODE2M30.6wYy6zDclY2956yWb35v3ZzX1yX2yX3yX4yX5yX6yX7";
-
         const derechoSelect = document.getElementById('derecho-select');
         const opinionesLista = document.getElementById('opiniones-lista');
         const solucionesLista = document.getElementById('soluciones-lista');
 
-        derechoSelect.addEventListener('change', cargarDatosNube);
-        document.addEventListener('DOMContentLoaded', () => {
-            cargarDatosNube();
-            // WhatsApp-mode: Actualiza automáticamente cada 3 segundos de fondo
-            setInterval(cargarDatosNube, 3000);
-        });
+        derechoSelect.addEventListener('change', renderizarPantalla);
+        document.addEventListener('DOMContentLoaded', renderizarPantalla);
 
-        // Publicar Opinión
-        document.getElementById('opinion-form').addEventListener('submit', async function(e) {
+        // Publicar Opinión (Inmediato)
+        document.getElementById('opinion-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            const btn = document.getElementById('btn-opinion');
             const txt = document.getElementById('opinion-texto');
             const nom = document.getElementById('opinion-nombre');
+            const derecho = derechoSelect.value;
+
+            const nuevaOp = { nombre: nom.value, texto: txt.value, fecha: obtenerHora() };
             
-            btn.disabled = true; btn.innerText = "Enviando...";
-
-            const payload = { tipo: 'opinion', derecho: derechoSelect.value, nombre: nom.value, texto: txt.value };
-
-            await fetch(REST_URL, {
-                method: 'POST',
-                headers: { 'apikey': API_KEY, 'Authorization': `Bearer ${API_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
-                body: JSON.stringify(payload)
-            });
+            // Guardar local e inmediatamente
+            let almacenamiento = JSON.parse(localStorage.getItem('ops_' + derecho)) || [];
+            almacenamiento.push(nuevaOp);
+            localStorage.setItem('ops_' + derecho, JSON.stringify(almacenamiento));
 
             txt.value = '';
+            renderizarPantalla();
+        });
+
+        // Publicar Solución (Inmediato)
+        document.getElementById('solucion-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const txt = document.getElementById('solucion-texto');
+            const nom = document.getElementById('solucion-nombre');
+            const derecho = derechoSelect.value;
+
+            const nuevaSol = { nombre: nom.value, texto: txt.value, fecha: obtenerHora() };
+
+            // Guardar local e inmediatamente
