@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Derechos: Chat Comunitario</title>
+    <title>Derechos: Defensa y Soluciones</title>
     
     <!-- Configuración para App Móvil -->
     <link rel="manifest" href="manifest.json">
@@ -15,175 +15,78 @@
         :root {
             --brandAzul: #0A3A60;
             --brandAmarillo: #F2A922;
-            --brandVerde: #075E54; /* Verde WhatsApp */
-            --brandVerdeClaro: #DCEFDC; /* Burbuja WhatsApp */
-            --brandFondo: #E5DDD5; /* Fondo clásico WhatsApp */
+            --brandVerde: #5FA843;
+            --brandFondo: #F4F6F9;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #333;
-            background-color: #f0f2f5;
+            background-color: var(--brandFondo);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            background-image: url('https://unsplash.com');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
         }
         header {
-            background-color: var(--brandAzul);
-            color: white;
-            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(4px);
+            padding: 2rem 1rem;
             text-align: center;
             border-bottom: 4px solid var(--brandAmarillo);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
         .logo-container {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 0.5rem;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1rem;
             border-radius: 50%;
             background-color: white;
-            padding: 4px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            padding: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
         }
         .logo-img { width: 100%; height: 100%; object-fit: cover; }
-        h1 { font-size: 1.5rem; font-weight: 800; }
-        .subtitle { color: var(--brandAmarillo); font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
+        h1 { color: var(--brandAzul); font-size: 2.25rem; font-weight: 800; letter-spacing: -0.05em; }
+        .subtitle { color: var(--brandVerde); font-size: 0.875rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.15em; margin-top: 0.25rem; }
+        .description { color: #555; max-width: 600px; margin: 0.75rem auto 0; font-size: 0.95rem; line-height: 1.5; }
+        main { max-width: 900px; width: 100%; margin: 2rem auto; padding: 0 1rem; flex-grow: 1; }
+        .select-group { margin-bottom: 2rem; }
+        .select-label { display: inline-block; font-weight: bold; color: var(--brandAzul); background-color: rgba(255,255,255,0.85); padding: 0.25rem 0.5rem; border-radius: 4px; margin-bottom: 0.5rem; }
+        select { width: 100%; background: white; border: 2px solid #ddd; border-radius: 8px; padding: 0.75rem; font-size: 1rem; font-weight: 500; outline: none; transition: border 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        select:focus { border-color: var(--brandAzul); }
+        .grid-container { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+        @media (min-width: 768px) { .grid-container { grid-template-columns: 1fr 1fr; } }
+        section.panel { background-color: rgba(255, 255, 255, 0.96); backdrop-filter: blur(4px); padding: 1.5rem; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.05); display: flex; flex-direction: column; }
+        h2 { font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+        h2.azul { color: var(--brandAzul); }
+        h2.verde { color: var(--brandVerde); }
+        form { margin-bottom: 1.5rem; }
+        input[type="text"], textarea { width: 100%; border: 1px solid #ccc; padding: 0.5rem; border-radius: 6px; font-size: 0.875rem; margin-bottom: 0.75rem; outline: none; }
+        input[type="text"]:focus { border-color: var(--brandAzul); }
+        .btn { width: 100%; border: none; padding: 0.65rem; color: white; border-radius: 6px; font-weight: bold; font-size: 0.875rem; cursor: pointer; transition: opacity 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .btn-azul { background-color: var(--brandAzul); }
+        .btn-verde { background-color: var(--brandVerde); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .lista-items { flex-grow: 1; overflow-y: auto; max-height: 320px; padding-right: 4px; display: flex; flex-direction: column; gap: 0.5rem; }
         
-        main {
-            max-width: 600px;
-            width: 100%;
-            margin: 1rem auto;
-            padding: 0 0.5rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            background-image: url('https://githubusercontent.com'); /* Fondo patrón WhatsApp */
-            background-color: var(--brandFondo);
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            overflow: hidden;
-            height: 70vh;
-        }
-
-        .select-box {
-            background: white;
-            padding: 0.7rem;
-            border-bottom: 1px solid #ddd;
-        }
-        select {
-            width: 100%;
-            padding: 0.5rem;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            font-size: 0.9rem;
-            outline: none;
-        }
-
-        /* CONTENEDOR DE MENSAJES ESTILO CHAT */
-        .chat-container {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .msg-bubble {
-            max-width: 85%;
-            padding: 0.6rem 0.8rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            position: relative;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.15);
-            line-height: 1.4;
-            word-wrap: break-word;
-        }
-        /* Tipo Opinión (Izquierda - Gris/Blanco) */
-        .msg-opinion {
-            background-color: white;
-            align-self: flex-start;
-            border-top-left-radius: 0;
-        }
-        /* Tipo Solución (Derecha - Verde WhatsApp) */
-        .msg-solucion {
-            background-color: var(--brandVerdeClaro);
-            align-self: flex-end;
-            border-top-right-radius: 0;
-        }
-
-        .msg-user {
-            font-weight: bold;
-            font-size: 0.75rem;
-            margin-bottom: 0.2rem;
-            display: block;
-        }
-        .user-opinion { color: #2b6cb0; }
-        .user-solucion { color: #2f855a; }
-
-        .msg-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.65rem;
-            color: #777;
-            margin-top: 0.3rem;
-        }
-        .msg-tag {
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 0.6rem;
-            padding: 1px 4px;
-            border-radius: 3px;
-            margin-right: 5px;
-        }
-        .tag-op { background: #ebf8ff; color: #2b6cb0; }
-        .tag-sol { background: #e6fffa; color: #234e52; }
-
-        /* FORMULARIO DE ENVÍO ESTILO BARRA DE WHATSAPP */
-        .input-area {
-            background-color: #f0f0f0;
-            padding: 0.75rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            border-top: 1px solid #ddd;
-        }
-        .input-row-top {
-            display: flex;
-            gap: 0.5rem;
-        }
-        .input-row-bottom {
-            display: flex;
-            gap: 0.5rem;
-        }
-        input[type="text"] {
-            flex-grow: 1;
-            border: 1px solid #ccc;
-            padding: 0.5rem;
-            border-radius: 20px;
-            outline: none;
-            font-size: 0.9rem;
-            background: white;
-        }
-        .chat-btn {
-            border: none;
-            padding: 0.5rem 1rem;
-            color: white;
-            font-weight: bold;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: background 0.2s;
-        }
-        .btn-op { background-color: var(--brandAzul); }
-        .btn-sol { background-color: var(--brandVerde); }
-        .btn-op:hover { opacity: 0.9; }
-        .btn-sol:hover { opacity: 0.9; }
-
-        footer { background-color: #333; color: #aaa; text-align: center; padding: 0.5rem; font-size: 0.7rem; }
+        /* burbujas interactivas estilo chat */
+        .item-card { padding: 0.6rem 0.8rem; border-radius: 8px; font-size: 0.85rem; box-shadow: 0 1px 2px rgba(0,0,0,0.1); max-width: 90%; position: relative; word-wrap: break-word; }
+        .item-card.azul { background-color: #ffffff; border-left: 4px solid var(--brandAzul); align-self: flex-start; }
+        .item-card.verde { background-color: #EBF8FF; border-left: 4px solid var(--brandVerde); align-self: flex-end; }
+        
+        .item-header { display: flex; justify-content: space-between; font-weight: bold; color: #444; margin-bottom: 0.2rem; gap: 1rem; }
+        .item-date { font-size: 0.65rem; color: #888; white-space: nowrap; font-weight: normal; }
+        .item-text { color: #333; line-height: 1.4; }
+        .empty-text { color: #999; font-size: 0.75rem; text-align: center; padding: 1rem 0; width: 100%; }
+        footer { background-color: var(--brandAzul); color: white; text-align: center; padding: 1.5rem; font-size: 0.75rem; margin-top: 3rem; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
@@ -193,94 +96,82 @@
             <img src="logo.jpeg" alt="Logo Derechos" class="logo-img">
         </div>
         <h1>DERECHOS</h1>
-        <p class="subtitle">Sala de Interacción en Vivo</p>
+        <p class="subtitle">Defensa y Soluciones</p>
+        <p class="description">Un espacio comunitario para visibilizar la vulneración de derechos, compartir opiniones y proponer alternativas de cambio social en tiempo real.</p>
     </header>
 
-    <div class="select-box">
-        <select id="derecho-select">
-            <option value="educacion">📚 Acceso a la Educación de Calidad</option>
-            <option value="salud">🏥 Acceso a la Salud Digna</option>
-            <option value="trabajo">💼 Trabajo Justo y Salario Digno</option>
-            <option value="expresion">🗣️ Libertad de Expresión y Opinión</option>
-            <option value="igualdad">⚖️ Interrupción de la Igualdad y Discriminación</option>
-        </select>
-    </div>
-
     <main>
-        <!-- CONTENEDOR DONDE SE VAN A VER LOS MENSAJES -->
-        <div id="chat-box" class="chat-container">
-            <p style="text-align:center; color:#777; font-size:0.8rem; margin-top:2rem;">Conectando al chat comunitario...</p>
+        <div class="select-group">
+            <span class="select-label">1. Selecciona un derecho vulnerado:</span>
+            <select id="derecho-select">
+                <option value="educacion">📚 Acceso a la Educación de Calidad</option>
+                <option value="salud">🏥 Acceso a la Salud Digna</option>
+                <option value="trabajo">💼 Trabajo Justo y Salario Digno</option>
+                <option value="expresion">🗣️ Libertad de Expresión y Opinión</option>
+                <option value="igualdad">⚖️ Interrupción de la Igualdad y Discriminación</option>
+            </select>
         </div>
 
-        <!-- BARRA DE ENTRADA DE TEXTO -->
-        <form id="chat-form" class="input-area">
-            <div class="input-row-top">
-                <input type="text" id="user-name" placeholder="Tu Nombre o Anónimo" required style="max-width: 150px;">
-                <input type="text" id="user-msg" placeholder="Escribe un mensaje aquí..." required>
-            </div>
-            <div class="input-row-bottom">
-                <button type="button" id="send-opinion" class="chat-btn btn-op" style="flex:1;">💬 Publicar Opinión</button>
-                <button type="button" id="send-solucion" class="chat-btn btn-sol" style="flex:1;">💡 Proponer Solución</button>
-            </div>
-        </form>
+        <div class="grid-container">
+            <!-- COLUMNA IZQUIERDA: OPINIONES -->
+            <section class="panel">
+                <h2 class="azul">💬 Foro de Opiniones</h2>
+                <form id="opinion-form">
+                    <input type="text" id="opinion-nombre" placeholder="Tu nombre o anónimo" required>
+                    <textarea id="opinion-texto" rows="3" placeholder="¿Cómo se vulnera este derecho? Deja tu opinión..." required></textarea>
+                    <button type="submit" id="btn-opinion" class="btn btn-azul">Publicar Opinión</button>
+                </form>
+                <div id="opiniones-lista" class="lista-items"></div>
+            </section>
+
+            <!-- COLUMNA DERECHA: SOLUCIONES -->
+            <section class="panel">
+                <h2 class="verde">💡 Propuestas de Solución</h2>
+                <form id="solucion-form">
+                    <input type="text" id="solucion-nombre" placeholder="Tu nombre o institución" required>
+                    <textarea id="solucion-texto" rows="3" placeholder="¿Qué solución legal, tecnológica o social propones?" required></textarea>
+                    <button type="submit" id="btn-solucion" class="btn btn-verde">Proponer Solución</button>
+                </form>
+                <div id="soluciones-lista" class="lista-items"></div>
+            </section>
+        </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 Derechos: Defensa y Soluciones. Chat Global en Tiempo Real.</p>
+        <p>&copy; 2026 Derechos: Defensa y Soluciones. Conexión de Datos en Vivo.</p>
     </footer>
 
     <script>
-        // BASE DE DATOS TOTALMENTE LIBERADA Y ABIERTA (Sin bloqueos)
-        const CHAT_API = "https://restful-api.dev"; 
+        // CONEXIÓN DIRECTA, ABIERTA Y SEGURA
+        const REST_URL = "https://supabase.co";
+        const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6YWp2a3l2aHl1eHZ1bm1zdmNsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4NjIxNjMsImV4cCI6MjA5NTQzODE2M30.6wYy6zDclY2956yWb35v3ZzX1yX2yX3yX4yX5yX6yX7";
 
         const derechoSelect = document.getElementById('derecho-select');
-        const chatBox = document.getElementById('chat-box');
-        const userNameInput = document.getElementById('user-name');
-        const userMsgInput = document.getElementById('user-msg');
+        const opinionesLista = document.getElementById('opiniones-lista');
+        const solucionesLista = document.getElementById('soluciones-lista');
 
-        derechoSelect.addEventListener('change', cargarChat);
+        derechoSelect.addEventListener('change', cargarDatosNube);
         document.addEventListener('DOMContentLoaded', () => {
-            cargarChat();
-            // Actualización automática tipo WhatsApp cada 4 segundos
-            setInterval(cargarChat, 4000);
+            cargarDatosNube();
+            // WhatsApp-mode: Actualiza automáticamente cada 3 segundos de fondo
+            setInterval(cargarDatosNube, 3000);
         });
 
-        // Evento Enviar Opinión
-        document.getElementById('send-opinion').addEventListener('click', () => enviarMensaje('opinion'));
-        // Evento Enviar Solución
-        document.getElementById('send-solucion').addEventListener('click', () => enviarMensaje('solucion'));
+        // Publicar Opinión
+        document.getElementById('opinion-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-opinion');
+            const txt = document.getElementById('opinion-texto');
+            const nom = document.getElementById('opinion-nombre');
+            
+            btn.disabled = true; btn.innerText = "Enviando...";
 
-        // Guardar Mensaje en la Nube
-        async function enviarMensaje(tipo) {
-            const nombre = userNameInput.value.trim();
-            const mensaje = userMsgInput.value.trim();
-            const derecho = derechoSelect.value;
+            const payload = { tipo: 'opinion', derecho: derechoSelect.value, nombre: nom.value, texto: txt.value };
 
-            if(!nombre || !mensaje) {
-                alert("Por favor rellena tu nombre y el mensaje.");
-                return;
-            }
-
-            // Crear el paquete de datos estructurado para simular base de datos abierta
-            const payload = {
-                name: `DERECHO_APP_${derecho}`,
-                data: {
-                    tipo: tipo,
-                    nombre: nombre,
-                    texto: mensaje,
-                    fecha: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
-                }
-            };
-
-            userMsgInput.value = ''; // Limpiar caja de texto rápido
-
-            await fetch(CHAT_API, {
+            await fetch(REST_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'apikey': API_KEY, 'Authorization': `Bearer ${API_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
                 body: JSON.stringify(payload)
             });
 
-            cargarChat(); // Recargar chat al instante
-        }
-
-        // Descargar todos los mensajes guardados por los usuarios
+            txt.value = '';
