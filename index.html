@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Derechos: Defensa y Soluciones</title>
     
-    <!-- Enlaces directos para el ícono de la app en el celular -->
+    <!-- Vinculación del Manifiesto de Aplicación Móvil Forzada -->
+    <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="logo.jpeg">
     <link rel="icon" href="logo.jpeg" type="image/jpeg">
+    <meta name="theme-color" content="#0A3A60">
 
     <style>
         :root {
@@ -92,7 +94,6 @@
 
     <header>
         <div class="logo-container">
-            <!-- Ahora lee directamente tu archivo logo.jpeg subido a GitHub -->
             <img src="logo.jpeg" alt="Logo Derechos" class="logo-img">
         </div>
         <h1>DERECHOS</h1>
@@ -126,7 +127,7 @@
             <section class="panel">
                 <h2 class="verde">💡 Propuestas de Solución</h2>
                 <form id="solucion-form">
-                    <input type="text" id="solucion-nombre" placeholder="Tu nombre o institution" required>
+                    <input type="text" id="solucion-nombre" placeholder="Tu nombre o institución" required>
                     <textarea id="solucion-texto" rows="3" placeholder="¿Qué solución legal, tecnológica o social propones?" required></textarea>
                     <button type="submit" class="btn btn-verde">Proponer Solución</button>
                 </form>
@@ -181,4 +182,3 @@
             opiniones.forEach(item => {
                 opinionesLista.innerHTML += `
                     <div class="item-card azul">
-                        <div class="item-header"><span>👤 ${item.nombre}</span><span class="item-date">${item.fecha}</span></div>
