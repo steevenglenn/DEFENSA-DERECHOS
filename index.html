@@ -137,7 +137,6 @@
     </footer>
 
     <script>
-        // CONEXIÓN DIRECTA POR HTTP (Evita el bloqueo de CORS del navegador)
         const REST_URL = "https://supabase.co";
         const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6YWp2a3l2aHl1eHZ1bm1zdmNsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4NjIxNjMsImV4cCI6MjA5NTQzODE2M30.6wYy6zDclY2956yWb35v3ZzX1yX2yX3yX4yX5yX6yX7";
 
@@ -181,3 +180,4 @@
             const payload = {
                 tipo: 'solucion',
                 derecho: derechoSelect.value,
+                nombre: document.getElementById('solucion-nombre').value,
