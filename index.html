@@ -11,9 +11,6 @@
     <link rel="icon" href="logo.jpeg" type="image/jpeg">
     <meta name="theme-color" content="#0A3A60">
 
-    <!-- Librería de Supabase para conectar la Base de Datos -->
-    <script src="https://jsdelivr.net"></script>
-
     <style>
         :root {
             --brandAzul: #0A3A60;
@@ -140,10 +137,9 @@
     </footer>
 
     <script>
-        // CONFIGURACIÓN DE LA BASE DE DATOS EN LA NUBE INTEGRADA
-        const SUPABASE_URL = "https://supabase.co";
-        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6YWp2a3l2aHl1eHZ1bm1zdmNsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4NjIxNjMsImV4cCI6MjA5NTQzODE2M30.6wYy6zDclY2956yWb35v3ZzX1yX2yX3yX4yX5yX6yX7";
-        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        // CONEXIÓN DIRECTA POR HTTP (Evita el bloqueo de CORS del navegador)
+        const REST_URL = "https://supabase.co";
+        const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6YWp2a3l2aHl1eHZ1bm1zdmNsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4NjIxNjMsImV4cCI6MjA5NTQzODE2M30.6wYy6zDclY2956yWb35v3ZzX1yX2yX3yX4yX5yX6yX7";
 
         const derechoSelect = document.getElementById('derecho-select');
         const opinionesLista = document.getElementById('opiniones-lista');
@@ -152,29 +148,36 @@
         derechoSelect.addEventListener('change', cargarDatosNube);
         document.addEventListener('DOMContentLoaded', cargarDatosNube);
 
-        // Guardar Opinión en la Nube
+        // Guardar Opinión
         document.getElementById('opinion-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-opinion');
             btn.disabled = true; btn.innerText = "Publicando...";
 
-            const derecho = derechoSelect.value;
-            const nombre = document.getElementById('opinion-nombre').value;
-            const texto = document.getElementById('opinion-texto').value;
+            const payload = {
+                tipo: 'opinion',
+                derecho: derechoSelect.value,
+                nombre: document.getElementById('opinion-nombre').value,
+                texto: document.getElementById('opinion-texto').value
+            };
 
-            await _supabase.from('interacciones').insert([
-                { tipo: 'opinion', derecho: derecho, nombre: nombre, texto: texto }
-            ]);
+            await fetch(REST_URL, {
+                method: 'POST',
+                headers: { 'apikey': API_KEY, 'Authorization': `Bearer ${API_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+                body: JSON.stringify(payload)
+            });
 
             document.getElementById('opinion-texto').value = '';
             btn.disabled = false; btn.innerText = "Publicar Opinión";
             cargarDatosNube();
         });
 
-        // Guardar Solución en la Nube
+        // Guardar Solución
         document.getElementById('solucion-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-solucion');
             btn.disabled = true; btn.innerText = "Proponiendo...";
 
-            const derecho = derechoSelect.value;
+            const payload = {
+                tipo: 'solucion',
+                derecho: derechoSelect.value,
